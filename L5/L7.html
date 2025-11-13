@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Alta_Viata</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      margin: 40px;
+      line-height: 1.6;
+      transition: background-color 0.4s, color 0.4s, font-family 0.4s;
+    }
+    h1, h2, h3, h4{ color: #2c3e50; }
+    h1{ font-size: 28px; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+    h2{ font-size: 22px; margin-top: 15px; }
+    h3, h4{ font-size: 18px; color: #555; }
+    img#profile {
+      border-radius: 8px;
+      margin-top: 10px;
+      transition: opacity 0.4s, border 0.3s, margin 0.3s;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    table{
+      border-collapse: collapse;
+      width: 80%;
+      margin-top: 20px;
+      background-color: #fff;
+    }
+    th, td{
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      text-align: left;
+    }
+    a{ color: #007bff; text-decoration: none; }
+    ul{ list-style-type: square; margin-top: 10px; }
+    li{ margin-bottom: 5px; }
+
+    .highlight-js {
+      outline: 4px solid rgba(255,215,0,0.9);
+      box-shadow: 0 0 10px rgba(255,215,0,0.3);
+    }
+
+    #altViataBtn {
+      display: inline-block;
+      margin: 15px 0;
+      padding: 10px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+      background: #2c3e50;
+      color: white;
+    }
+
+    #anNastere {
+      font-weight: bold;
+      color: #007bff;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    #emailInput {
+      margin-top: 15px;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="altViataBtn">Alta viata</button>
+
+  <h1 id="nume">Nume: Balea</h1>
+  <h2 id="prenume">Prenume: Alex</h2>
+  <h3 id="email">E-mail: balea.co.alex@student.utcluj.ro</h3>
+
+  <img id="profile" src="images/poza.png" alt="poza profil" width="400" height="250">
+
+  <h4 id="asteptariTitlu">Asteptari legate de educatie:</h4>
+  <p id="asteptari">Dezvoltare pe plan social/pe plan al carierei.</p>
+
+  <p><strong>Anul nasterii:</strong> <span id="anNastere">2002</span></p>
+
+  <p>Discipline:</p>
+  <table id="tabel-disc">
+    <tr>
+      <th>Disciplina</th>
+      <th>An</th>
+      <th>Link</th>
+    </tr>
+    <tr><td>IA</td><td>1</td><td><a href="https://etti.utcluj.ro/files/Acasa/Site/FiseDisciplina/EaRo/06.pdf">link</a></td></tr>
+    <tr><td>Fizica</td><td>1</td><td><a href="https://etti.utcluj.ro/files/Acasa/Site/FiseDisciplina/EaRo/03.pdf">link</a></td></tr>
+    <tr><td>Analiza Matematica</td><td>1</td><td><a href="https://etti.utcluj.ro/files/Acasa/Site/FiseDisciplina/EaRo/01.pdf">link</a></td></tr>
+    <tr><td>Algebra Liniara</td><td>1</td><td><a href="https://etti.utcluj.ro/files/Acasa/Site/FiseDisciplina/EaRo/02.pdf">link</a></td></tr>
+    <tr><td>Educatie fizica si sport</td><td>1</td><td><a href="https://etti.utcluj.ro/files/Acasa/Site/FiseDisciplina/EaRo/07.pdf">link</a></td></tr>
+  </table>
+
+  <p>Hobby-uri:</p>
+  <ul id="hobbyuri">
+    <li>Fotbal</li>
+    <li>Muzica</li>
+  </ul>
+
+  <label for="emailInput">Introdu o adresa de e-mail:</label><br>
+  <input type="text" id="emailInput" placeholder="ex: nume@email.com">
+
+  <script>
+    const btn = document.getElementById('altViataBtn');
+    const numeH1 = document.getElementById('nume');
+    const prenumeH2 = document.getElementById('prenume');
+    const emailH3 = document.getElementById('email');
+    const profileImg = document.getElementById('profile');
+    const asteptariP = document.getElementById('asteptari');
+    const hobbyList = document.getElementById('hobbyuri');
+    const body = document.body;
+    const asteptariTitlu = document.getElementById('asteptariTitlu');
+    const anNastereElem = document.getElementById('anNastere');
+    const emailInput = document.getElementById('emailInput');
+    let alternativaActivata = false;
+
+    const initial = {
+      numeText: numeH1.textContent,
+      prenumeText: prenumeH2.textContent,
+      emailText: emailH3.textContent,
+      imgSrc: profileImg.src,
+      asteptariText: asteptariP.textContent,
+      hobbiesHTML: hobbyList.innerHTML,
+      bodyBg: getComputedStyle(body).backgroundColor,
+      bodyFont: getComputedStyle(body).fontFamily,
+      bodyColor: getComputedStyle(body).color
+    };
+
+    const alternativa = {
+      numeText: "Pozitie: Frontend Developer",
+      prenumeText: "Loc de munca visat: Cluj-Napoca — Companie Tech",
+      emailText: "Contact: alexbalea02@gmail.com",
+      imgSrc: "images/poza.png",
+      asteptariText: "Realizari: internship la o echipa de dezvoltare web.",
+      hobbiesHTML: "<li>Proiecte web</li><li>Design UI/UX</li><li>Contributii open-source</li>",
+      bodyBg: "#0f1724",
+      bodyFont: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      bodyColor: "#f0f6ff"
+    };
+
+    function evidentiere(elem) {
+      elem.classList.add('highlight-js');
+      setTimeout(() => elem.classList.remove('highlight-js'), 1800);
+    }
+
+        const anulNasterii = 2007;
+    anNastereElem.addEventListener('mouseover', () => {
+      const anulCurent = new Date().getFullYear();
+      const varsta = anulCurent - anulNasterii;
+      anNastereElem.textContent = `Vârsta: ${varsta} ani`;
+      anNastereElem.style.color = "green";
+    });
+    anNastereElem.addEventListener('mouseout', () => {
+      anNastereElem.textContent = anulNasterii;
+      anNastereElem.style.color = "#007bff";
+    });
+
+        emailInput.addEventListener('input', () => {
+      if (emailInput.value.includes("@")) {
+        emailInput.style.borderColor = "green";
+      } else {
+        emailInput.style.borderColor = "red";
+      }
+    });
+
+        btn.addEventListener('click', function() {
+      if (!alternativaActivata) {
+        numeH1.textContent = alternativa.numeText;
+        prenumeH2.textContent = alternativa.prenumeText;
+        emailH3.textContent = alternativa.emailText;
+
+        profileImg.src = alternativa.imgSrc;
+        profileImg.style.opacity = "0.9";
+        profileImg.style.border = "6px solid #ccc";
+        profileImg.style.margin = "6px";
+
+        asteptariP.textContent = alternativa.asteptariText;
+        hobbyList.innerHTML = alternativa.hobbiesHTML;
+
+        body.style.backgroundColor = alternativa.bodyBg;
+        body.style.fontFamily = alternativa.bodyFont;
+        body.style.color = alternativa.bodyColor;
+
+        evidentiere(numeH1);
+        evidentiere(prenumeH2);
+        evidentiere(emailH3);
+        evidentiere(profileImg);
+        evidentiere(asteptariTitlu);
+        evidentiere(hobbyList);
+
+        btn.textContent = "Revenire la viata initiala";
+        alternativaActivata = true;
+      } else {
+        numeH1.textContent = initial.numeText;
+        prenumeH2.textContent = initial.prenumeText;
+        emailH3.textContent = initial.emailText;
+
+        profileImg.src = initial.imgSrc;
+        profileImg.style.opacity = "";
+        profileImg.style.border = "";
+        profileImg.style.margin = "";
+
+        asteptariP.textContent = initial.asteptariText;
+        hobbyList.innerHTML = initial.hobbiesHTML;
+
+        body.style.backgroundColor = initial.bodyBg;
+        body.style.fontFamily = initial.bodyFont;
+        body.style.color = initial.bodyColor;
+
+        evidentiere(numeH1);
+        evidentiere(profileImg);
+
+        btn.textContent = "Alta viata";
+        alternativaActivata = false;
+      }
+    });
+  </script>
+</body>
+</html>
